@@ -166,8 +166,6 @@ curl -X POST http://localhost:8000/api/orders/1/tasks \
 
 -   **JWT Auth** is used for secure, stateless authentication (all endpoints except `/register` and `/api/login_check` require auth).
 
--   **Validation** is minimal for the assignment; can be expanded using Symfony's Validator component.
-
 -   **Swagger/OpenAPI** docs are provided via a static yaml for clarity and frontend dev usability.
 
 
