@@ -132,6 +132,7 @@ curl -X POST http://localhost:8000/api/orders \
     "orderNumber": 1001,
     "orderDate": "2025-05-25T20:15:00+00:00",
     "status": "pending",
+    "currency": "EUR",
     "orderLines": [
       { "amount": 2, "productName": "Widget A", "pickedDate": null }
     ]

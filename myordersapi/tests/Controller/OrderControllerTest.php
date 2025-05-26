@@ -57,6 +57,7 @@ class OrderControllerTest extends WebTestCase
             "orderNumber" => 1001,
             "orderDate" => "2025-06-01T10:00:00+00:00",
             "status" => "pending",
+            "currency" => "EUR",
             "orderLines" => [
                 [
                     "amount" => 2,
@@ -65,6 +66,7 @@ class OrderControllerTest extends WebTestCase
                 ]
             ]
         ];
+
         $client->request('POST', '/api/orders', [], [], $headers, json_encode($orderData));
         $this->assertResponseStatusCodeSame(201);
 
@@ -84,12 +86,12 @@ class OrderControllerTest extends WebTestCase
         $order = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals("Test Order", $order['name']);
 
-        // 5. Update the Order
         $updateData = [
             "name" => "Updated Order",
             "orderNumber" => 1002,
             "orderDate" => "2025-06-02T11:00:00+00:00",
             "status" => "processing",
+            "currency" => "USD",
             "orderLines" => [
                 [
                     "amount" => 1,

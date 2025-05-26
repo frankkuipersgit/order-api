@@ -40,6 +40,10 @@ class Order
     #[Groups(['order:read'])]
     private ?User $user = null;
 
+    #[ORM\Column(length: 10)]
+    #[Groups(['order:read'])]
+    private ?string $currency = null;
+
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderLine::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['order:read'])]
     private Collection $orderLines;
@@ -111,6 +115,17 @@ class Order
                 $task->setOrder(null);
             }
         }
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): static
+    {
+        $this->currency = $currency;
         return $this;
     }
 }
