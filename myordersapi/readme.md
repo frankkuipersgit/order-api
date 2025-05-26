@@ -28,8 +28,8 @@ A RESTful backend service for managing orders, order lines, and tasks, built wit
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
-cd <project-directory>
+git clone <https://github.com/frankkuipersgit/order-api>
+cd <myordersapi>
 ```
 
 ### 2\. Install dependencies
