@@ -15,16 +15,13 @@ class OrderService
 {
     private EntityManagerInterface $em;
     private Security $security;
-    private OrderRepository $orderRepository;
 
     public function __construct(
         EntityManagerInterface $em,
         Security $security,
-        OrderRepository $orderRepository
     ) {
         $this->em = $em;
         $this->security = $security;
-        $this->orderRepository = $orderRepository;
     }
 
     public function createOrder(array $data): Order
@@ -110,5 +107,52 @@ class OrderService
         }
         $this->em->flush();
         return $order;
+    }
+
+    public function updateTask(Order $order, int $taskId, array $data): ?Order
+    {
+        $task = null;
+        foreach ($order->getTasks() as $t) {
+            if ($t->getId() === $taskId) {
+                $task = $t;
+                break;
+            }
+        }
+        if (!$task) {
+            return null;
+        }
+
+        if (isset($data['name'])) {
+            $task->setName($data['name']);
+        }
+        if (array_key_exists('description', $data)) {
+            $task->setDescription($data['description']);
+        }
+        if (array_key_exists('executionDate', $data)) {
+            $task->setExecutionDate($data['executionDate'] ? new \DateTimeImmutable($data['executionDate']) : null);
+        }
+
+        $this->em->flush();
+
+        return $order;
+    }
+
+    public function deleteTask(Order $order, int $taskId): bool
+    {
+        $task = null;
+        foreach ($order->getTasks() as $t) {
+            if ($t->getId() === $taskId) {
+                $task = $t;
+                break;
+            }
+        }
+        if (!$task) {
+            return false;
+        }
+        $order->removeTask($task);
+        $this->em->remove($task);
+        $this->em->flush();
+
+        return true;
     }
 }

@@ -18,8 +18,7 @@ class OrderController extends AbstractController
 
     public function __construct(
         OrderService $orderService,
-        OrderRepository $orderRepository,
-        EntityManagerInterface $em
+        OrderRepository $orderRepository
     ) {
         $this->orderService    = $orderService;
         $this->orderRepository = $orderRepository;
@@ -130,6 +129,45 @@ class OrderController extends AbstractController
         return $this->json($this->orderToArray($order), 200);
     }
 
+    #[Route('/{orderId}/tasks/{taskId}', methods: ['PUT'])]
+    public function updateTask(int $orderId, int $taskId, Request $request): JsonResponse
+    {
+        $order = $this->orderRepository->findOneBy([
+            'id' => $orderId,
+            'user' => $this->getUser(),
+        ]);
+        if (!$order) {
+            return $this->json(['error' => 'Order not found'], 404);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        $order = $this->orderService->updateTask($order, $taskId, $data);
+        if ($order === null) {
+            return $this->json(['error' => 'Task not found for this order'], 404);
+        }
+
+        return $this->json($this->orderToArray($order), 200);
+    }
+
+    #[Route('/{orderId}/tasks/{taskId}', methods: ['DELETE'])]
+    public function deleteTask(int $orderId, int $taskId): JsonResponse
+    {
+        $order = $this->orderRepository->findOneBy([
+            'id' => $orderId,
+            'user' => $this->getUser(),
+        ]);
+        if (!$order) {
+            return $this->json(['error' => 'Order not found'], 404);
+        }
+
+        $result = $this->orderService->deleteTask($order, $taskId);
+        if (!$result) {
+            return $this->json(['error' => 'Task not found for this order'], 404);
+        }
+
+        return $this->json(['status' => 'Task deleted'], 200);
+    }
 
     private function orderToArray(\App\Entity\Order $order): array
     {

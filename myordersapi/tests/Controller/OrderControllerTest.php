@@ -139,8 +139,47 @@ class OrderControllerTest extends WebTestCase
         $this->assertNotEmpty($orderWithTasks['tasks']);
         $this->assertEquals('First Task', $orderWithTasks['tasks'][0]['name']);
 
-        // 8. Delete the Order
+        // 8. Update the first Task
+        $taskId = $orderWithTasks['tasks'][0]['id'];
+        $updatedTaskData = [
+            'name' => 'Updated Task',
+            'description' => 'Updated description',
+            'executionDate' => '2025-06-04T10:00:00+00:00'
+        ];
+        $client->request(
+            'PUT',
+            "/api/orders/{$orderId}/tasks/{$taskId}",
+            [],
+            [],
+            $headers,
+            json_encode($updatedTaskData)
+        );
+        $this->assertResponseIsSuccessful();
+        $orderWithUpdatedTask = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('Updated Task', $orderWithUpdatedTask['tasks'][0]['name']);
+        $this->assertEquals('Updated description', $orderWithUpdatedTask['tasks'][0]['description']);
+
+        // 9. Delete the first Task
+        $client->request(
+            'DELETE',
+            "/api/orders/{$orderId}/tasks/{$taskId}",
+            [],
+            [],
+            $headers
+        );
+        $this->assertResponseIsSuccessful();
+        $deletedTaskResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('Task deleted', $deletedTaskResponse['status']);
+
+        // 10. Confirm task is removed
+        $client->request('GET', '/api/orders/' . $orderId, [], [], $headers);
+        $this->assertResponseIsSuccessful();
+        $orderAfterTaskDelete = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEmpty($orderAfterTaskDelete['tasks']);
+
+        // 11. Delete the Order
         $client->request('DELETE', '/api/orders/' . $orderId, [], [], $headers);
         $this->assertResponseIsSuccessful();
     }
+
 }

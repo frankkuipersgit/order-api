@@ -310,3 +310,74 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
+
+  /api/orders/{orderId}/tasks/{taskId}:
+    put:
+      tags: [Orders]
+      summary: Update a specific task on an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: taskId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                executionDate:
+                  type: string
+                  format: date-time
+                  nullable: true
+      responses:
+        '200':
+          description: Task updated, returns full order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Not found
+
+    delete:
+      tags: [Orders]
+      summary: Delete a specific task on an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: taskId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Task deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+        '404':
+          description: Not found
