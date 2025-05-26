@@ -178,7 +178,7 @@ curl -X POST http://localhost:8000/api/orders/1/tasks \
 Run all tests:
 
 ```bash
-php bin/phpunit
+vendor/phpunit/phpunit/phpunit
 ```
 
 ## Contact
