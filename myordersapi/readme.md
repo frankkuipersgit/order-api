@@ -42,7 +42,7 @@ composer install
 Copy the example environment file and update if necessary:
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 > **Do not commit your `.env` or `.env.local` file. Only `.env.example` should be versioned.**
