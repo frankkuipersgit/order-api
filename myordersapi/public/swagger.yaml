@@ -25,7 +25,6 @@ components:
       properties:
         id:
           type: integer
-          readOnly: true
         amount:
           type: number
           example: 125.50
