@@ -18,7 +18,6 @@ A RESTful backend service for managing orders, order lines, and tasks, built wit
 - Composer (dependency management)
 - SQLite (default, easy local setup)
 - Doctrine ORM
-- [NelmioApiDocBundle](https://symfony.com/doc/current/bundles/NelmioApiDocBundle/index.html) (for OpenAPI/Swagger docs)
 - JWT Auth (LexikJWTAuthenticationBundle)
 
 ---
