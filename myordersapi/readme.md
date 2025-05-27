@@ -114,7 +114,7 @@ Authorization: Bearer <token>
 
 ### 3\. Use the API
 
-See the OpenAPI/Swagger docs or the [cURL examples](#examples) below for all endpoints.
+See the OpenAPI/Swagger docs or the [cURL examples](#examples) below for example endpoints.
 
 ---
 
