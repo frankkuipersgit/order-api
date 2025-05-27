@@ -78,7 +78,7 @@ php -S localhost:8000 -t public
 
 ## API Documentation (Swagger/OpenAPI)
 
--   **Hand-written OpenAPI file:** See `swagger.yaml`
+-   **OpenAPI file:** See `public/swagger.yaml`
 
 -   **Interactive docs:** Open `swagger.yaml` in Swagger Editor.
 
