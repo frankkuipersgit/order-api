@@ -167,14 +167,23 @@ curl -X POST http://localhost:8000/api/orders/1/tasks \
 
 - **JWT Auth** is used for secure, stateless authentication (all endpoints except `/register` and `/api/login_check` require auth).
 
-<<<<<<< HEAD
+- **Swagger/OpenAPI** docs are provided via a static yaml for clarity and frontend dev usability.
 
-- # **Swagger/OpenAPI** docs are provided via a static yaml for clarity and frontend dev usability.
 - **Validation** is minimal for the assignment; can be expanded using Symfony's Validator component.
 
-  > > > > > > > ab7fe00 (chore: make currency only settable on POST endpoint)
+### Order Entity
 
-- **Swagger/OpenAPI** docs are provided via a static yaml for clarity and frontend dev usability.
+The Order entity contains the following fields:
+
+- id: Unique identifier
+- name: Order name
+- orderNumber: Order number
+- orderDate: Date when the order was created
+- status: Current status of the order (pending, processing, completed)
+- currency: The currency of the order (read-only after creation)
+- total: The total amount of the order, calculated from order lines (read-only)
+- orderLines: Collection of order lines
+- tasks: Collection of tasks associated with the order
 
 ---
 

@@ -44,6 +44,9 @@ class Order
     #[Groups(['order:read'])]
     private ?string $currency = null;
 
+    #[Groups(['order:read'])]
+    private ?float $total = null;
+
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderLine::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['order:read'])]
     private Collection $orderLines;
@@ -127,5 +130,14 @@ class Order
     {
         $this->currency = $currency;
         return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        $total = 0;
+        foreach ($this->orderLines as $orderLine) {
+            $total += $orderLine->getAmount();
+        }
+        return $total;
     }
 }

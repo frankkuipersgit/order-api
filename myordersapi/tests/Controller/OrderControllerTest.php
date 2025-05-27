@@ -104,6 +104,7 @@ class OrderControllerTest extends WebTestCase
         $updatedOrder = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals("Updated Order", $updatedOrder['name']);
         $this->assertEquals("EUR", $updatedOrder['currency']);
+        $this->assertEquals(1, $updatedOrder['total']);
 
         // 6. Update Order Status
         $client->request(

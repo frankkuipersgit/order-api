@@ -66,6 +66,9 @@ components:
         currency:
           type: string
           readOnly: true
+        total:
+          type: number
+          readOnly: true
         orderLines:
           type: array
           items:

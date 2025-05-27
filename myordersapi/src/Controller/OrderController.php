@@ -178,6 +178,7 @@ class OrderController extends AbstractController
             'orderDate'   => $order->getOrderDate()?->format('Y-m-d H:i:s'),
             'status' => $order->getStatus()?->value,
             'currency'    => $order->getCurrency(),
+            'total'       => $order->getTotal(),
             'orderLines'  => array_map(function($ol) {
                 return [
                     'id'         => $ol->getId(),
