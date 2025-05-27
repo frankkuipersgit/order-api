@@ -91,7 +91,6 @@ class OrderControllerTest extends WebTestCase
             "orderNumber" => 1002,
             "orderDate" => "2025-06-02T11:00:00+00:00",
             "status" => "processing",
-            "currency" => "USD",
             "orderLines" => [
                 [
                     "amount" => 1,
@@ -104,6 +103,7 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $updatedOrder = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals("Updated Order", $updatedOrder['name']);
+        $this->assertEquals("EUR", $updatedOrder['currency']);
 
         // 6. Update Order Status
         $client->request(

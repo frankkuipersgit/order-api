@@ -60,10 +60,6 @@ class OrderService
         if (isset($data['orderNumber'])) $order->setOrderNumber($data['orderNumber']);
         if (isset($data['orderDate'])) $order->setOrderDate(new \DateTimeImmutable($data['orderDate']));
         if (isset($data['status'])) $order->setStatus($data['status']);
-        if (isset($data['currency'])) {
-            $order->setCurrency($data['currency']);
-        }
-
 
         if (isset($data['orderLines'])) {
             foreach ($order->getOrderLines() as $oldLine) {

@@ -63,14 +63,17 @@ components:
           format: date-time
         status:
           type: string
+        currency:
+          type: string
+          readOnly: true
         orderLines:
           type: array
           items:
-            $ref: '#/components/schemas/OrderLine'
+            $ref: "#/components/schemas/OrderLine"
         tasks:
           type: array
           items:
-            $ref: '#/components/schemas/Task'
+            $ref: "#/components/schemas/Task"
 
 security:
   - bearerAuth: []
@@ -95,7 +98,7 @@ paths:
                   type: string
                   example: test123
       responses:
-        '201':
+        "201":
           description: User registered
           content:
             application/json:
@@ -104,9 +107,9 @@ paths:
                 properties:
                   status:
                     type: string
-        '400':
+        "400":
           description: Missing data
-        '409':
+        "409":
           description: User already exists
 
   /api/login_check:
@@ -128,7 +131,7 @@ paths:
                   type: string
                   example: test123
       responses:
-        '200':
+        "200":
           description: JWT Token
           content:
             application/json:
@@ -137,7 +140,7 @@ paths:
                 properties:
                   token:
                     type: string
-        '401':
+        "401":
           description: Invalid credentials
 
   /api/orders:
@@ -152,7 +155,8 @@ paths:
           application/json:
             schema:
               type: object
-              required: [name, orderNumber, orderDate, status, orderLines]
+              required:
+                [name, orderNumber, orderDate, status, currency, orderLines]
               properties:
                 name:
                   type: string
@@ -163,17 +167,19 @@ paths:
                   format: date-time
                 status:
                   type: string
+                currency:
+                  type: string
                 orderLines:
                   type: array
                   items:
-                    $ref: '#/components/schemas/OrderLine'
+                    $ref: "#/components/schemas/OrderLine"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: "#/components/schemas/Order"
 
     get:
       tags: [Orders]
@@ -181,14 +187,14 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: List of orders
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Order'
+                  $ref: "#/components/schemas/Order"
 
   /api/orders/{id}:
     get:
@@ -203,13 +209,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: The order
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
-        '404':
+                $ref: "#/components/schemas/Order"
+        "404":
           description: Not found
 
     put:
@@ -228,14 +234,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Order'
+              $ref: "#/components/schemas/Order"
       responses:
-        '200':
+        "200":
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: "#/components/schemas/Order"
 
     delete:
       tags: [Orders]
@@ -249,7 +255,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Deleted
 
   /api/orders/{id}/status:
@@ -275,12 +281,12 @@ paths:
                 status:
                   type: string
       responses:
-        '200':
+        "200":
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: "#/components/schemas/Order"
 
   /api/orders/{id}/tasks:
     post:
@@ -305,14 +311,14 @@ paths:
                 tasks:
                   type: array
                   items:
-                    $ref: '#/components/schemas/Task'
+                    $ref: "#/components/schemas/Task"
       responses:
-        '200':
+        "200":
           description: Tasks linked
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: "#/components/schemas/Order"
 
   /api/orders/{orderId}/tasks/{taskId}:
     put:
@@ -347,13 +353,13 @@ paths:
                   format: date-time
                   nullable: true
       responses:
-        '200':
+        "200":
           description: Task updated, returns full order
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
-        '404':
+                $ref: "#/components/schemas/Order"
+        "404":
           description: Not found
 
     delete:
@@ -373,7 +379,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Task deleted
           content:
             application/json:
@@ -382,5 +388,5 @@ paths:
                 properties:
                   status:
                     type: string
-        '404':
+        "404":
           description: Not found

@@ -78,9 +78,9 @@ php -S localhost:8000 -t public
 
 ## API Documentation (Swagger/OpenAPI)
 
--   **OpenAPI file:** See `public/swagger.yaml`
+- **OpenAPI file:** See `public/swagger.yaml`
 
--   **Interactive docs:** Open `swagger.yaml` in Swagger Editor.
+- **Interactive docs:** Open `swagger.yaml` in Swagger Editor.
 
 ---
 
@@ -138,6 +138,8 @@ curl -X POST http://localhost:8000/api/orders \
   }'
 ```
 
+> **Note:** The `currency` field can only be set when creating an order. It cannot be modified after creation.
+
 ### Add Tasks to Order
 
 ```bash
@@ -159,14 +161,15 @@ curl -X POST http://localhost:8000/api/orders/1/tasks \
 
 ## Design Decisions & Assumptions
 
--   **SQLite** is used for easy local setup; can be switched to MySQL/Postgres via Doctrine config.
+- **SQLite** is used for easy local setup; can be switched to MySQL/Postgres via Doctrine config.
 
--   **Entities, Repositories, Services, Controllers** are split according to Symfony best practices for separation of concerns and maintainability.
+- **Entities, Repositories, Services, Controllers** are split according to Symfony best practices for separation of concerns and maintainability.
 
--   **JWT Auth** is used for secure, stateless authentication (all endpoints except `/register` and `/api/login_check` require auth).
+- **JWT Auth** is used for secure, stateless authentication (all endpoints except `/register` and `/api/login_check` require auth).
 
--   **Swagger/OpenAPI** docs are provided via a static yaml for clarity and frontend dev usability.
+- **Validation** is minimal for the assignment; can be expanded using Symfony's Validator component.
 
+- **Swagger/OpenAPI** docs are provided via a static yaml for clarity and frontend dev usability.
 
 ---
 
