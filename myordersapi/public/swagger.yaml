@@ -25,14 +25,18 @@ components:
       properties:
         id:
           type: integer
+          readOnly: true
         amount:
           type: number
+          example: 125.50
         productName:
           type: string
+          example: "Buitenreclamebord 2x3m"
         pickedDate:
           type: string
           format: date-time
           nullable: true
+          example: "2024-03-20T14:30:00+00:00"
         currency:
           type: string
 
@@ -41,42 +45,64 @@ components:
       properties:
         id:
           type: integer
+          readOnly: true
         name:
           type: string
+          example: "Ontwerp goedkeuren"
         description:
           type: string
+          example: "Wachten op klantgoedkeuring voor het ontwerp van het reclamebord"
         executionDate:
           type: string
           format: date-time
           nullable: true
+          example: "2024-03-21T10:00:00+00:00"
     Order:
       type: object
       properties:
         id:
           type: integer
+          readOnly: true
         name:
           type: string
+          example: "Buitenreclame voor Bakkerij Jansen"
         orderNumber:
           type: integer
+          example: 2024031501
         orderDate:
           type: string
           format: date-time
+          example: "2024-03-15T09:30:00+00:00"
         status:
           type: string
+          example: "processing"
         currency:
           type: string
           readOnly: true
+          example: "EUR"
         total:
           type: number
           readOnly: true
+          example: 125.50
         orderLines:
           type: array
           items:
             $ref: "#/components/schemas/OrderLine"
+          example:
+            - amount: 125.50
+              productName: "Buitenreclamebord 2x3m"
+              pickedDate: null
         tasks:
           type: array
           items:
             $ref: "#/components/schemas/Task"
+          example:
+            - name: "Ontwerp goedkeuren"
+              description: "Wachten op klantgoedkeuring voor het ontwerp van het reclamebord"
+              executionDate: "2024-03-21T10:00:00+00:00"
+            - name: "Productie starten"
+              description: "Start productie na ontwerpgoedkeuring"
+              executionDate: "2024-03-22T08:00:00+00:00"
 
 security:
   - bearerAuth: []
@@ -163,19 +189,28 @@ paths:
               properties:
                 name:
                   type: string
+                  example: "Buitenreclame voor Bakkerij Jansen"
                 orderNumber:
                   type: integer
+                  example: 2024031501
                 orderDate:
                   type: string
                   format: date-time
+                  example: "2024-03-15T09:30:00+00:00"
                 status:
                   type: string
+                  example: "pending"
                 currency:
                   type: string
+                  example: "EUR"
                 orderLines:
                   type: array
                   items:
                     $ref: "#/components/schemas/OrderLine"
+                  example:
+                    - amount: 125.50
+                      productName: "Buitenreclamebord 2x3m"
+                      pickedDate: null
       responses:
         "201":
           description: Created
@@ -315,6 +350,13 @@ paths:
                   type: array
                   items:
                     $ref: "#/components/schemas/Task"
+                  example:
+                    - name: "Ontwerp goedkeuren"
+                      description: "Wachten op klantgoedkeuring voor het ontwerp van het reclamebord"
+                      executionDate: "2024-03-21T10:00:00+00:00"
+                    - name: "Productie starten"
+                      description: "Start productie na ontwerpgoedkeuring"
+                      executionDate: "2024-03-22T08:00:00+00:00"
       responses:
         "200":
           description: Tasks linked
