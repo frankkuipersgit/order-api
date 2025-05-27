@@ -7,7 +7,7 @@ A RESTful backend service for managing orders, order lines, and tasks, built wit
 - **Create Orders:** Add a new order with one or more order lines.
 - **Update Orders:** Modify existing order details, including its lines.
 - **Delete Orders:** Remove orders from the system.
-- **Update Order Status:** Change order status (`pending`, `processing`, `completed`, etc).
+- **Update Order Status:** Change order status (`pending`, `processing`, `completed`).
 - **Link Tasks to Orders:** Attach one or more tasks to any order.
 - **JWT Authorization:** All endpoints are secured using Bearer Token authentication.
 
