@@ -64,7 +64,7 @@ openssl genrsa -out config/jwt/private.pem -aes256 4096
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
 
-Update your `.env.local` if your keys are in a non-default location.
+Update your `.env` if your keys are in a non-default location.
 
 ### 6\. Run the server
 
